@@ -29,6 +29,7 @@ def time_fetch_urls(url, num_jobs):
     Fetch a URL `num_jobs` times in parallel and return the
     total amount of time required.
     """
+
     print("Sending %d requests for %s..." % (num_jobs, url))
     t0 = time.time()
     jobs = [gevent.spawn(fetch_url, url) for i in range(num_jobs)]
@@ -49,9 +50,6 @@ if __name__ == '__main__':
 
     # Fetch the URL that blocks with a `pg_sleep`
     t1 = time_fetch_urls("http://localhost:8000/sleep_psycopg2", num_requests)
-
-    # Fetch the URL that blocks with a `pg_sleep`
-    # t1 = time_fetch_urls("http://localhost:8000/sleep/postgres/", num_requests)
 
     print("------------------------------------------")
     print("SUM TOTAL = %.2fs" % (t0+t1))
